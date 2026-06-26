@@ -103,6 +103,23 @@ header.nav.solid .burger span{background:var(--ink)}
 .emblem .glow{position:absolute;inset:-30%;background:radial-gradient(circle,rgba(201,162,39,.35),transparent 60%);filter:blur(10px)}
 .emblem .M{position:relative;font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(86px,11vw,120px);background:var(--gold-grad);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1}
 .emblem .M::after{content:"";position:absolute;top:8%;right:-2%;width:13px;height:13px;border-radius:50%;background:var(--gold);box-shadow:0 0 14px var(--gold)}
+.dash{position:relative;z-index:3;width:clamp(290px,30vw,372px);background:linear-gradient(165deg,rgba(10,46,28,.94),rgba(4,20,12,.94));backdrop-filter:blur(14px);border:1px solid rgba(230,197,90,.22);border-radius:24px;padding:24px;box-shadow:0 44px 100px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.06);animation:floaty 7s ease-in-out infinite}
+.dash-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:22px}
+.dash-brand{display:flex;align-items:center;gap:9px;font-family:'Sora',sans-serif;font-weight:700;font-size:14.5px;color:var(--cream-text)}
+.dash-brand .dot{width:8px;height:8px;border-radius:50%;background:#41d27d;box-shadow:0 0 10px #41d27d;animation:mpulse 2s ease-in-out infinite}
+@keyframes mpulse{0%,100%{opacity:1}50%{opacity:.4}}
+.dash-period{font-size:12px;color:rgba(250,245,236,.55);background:rgba(250,245,236,.06);padding:6px 13px;border-radius:999px}
+.dash-stat{margin-bottom:18px}
+.dlab{font-size:12.5px;color:rgba(250,245,236,.6);margin-bottom:6px}
+.dnum{font-family:'Sora',sans-serif;font-weight:800;font-size:clamp(28px,3vw,36px);color:var(--gold);display:flex;align-items:baseline;gap:11px;line-height:1}
+.dup{font-size:13px;font-weight:700;color:#41d27d}
+.dash-chart{display:flex;align-items:flex-end;gap:8px;height:84px;margin-bottom:20px}
+.dash-chart span{flex:1;background:linear-gradient(180deg,var(--gold),rgba(201,162,39,.25));border-radius:6px 6px 3px 3px;min-height:8px;transition:height .3s}
+.dash-chart span:last-child{background:linear-gradient(180deg,#41d27d,rgba(65,210,125,.25))}
+.dash-tiles{display:flex;gap:10px}
+.dtile{flex:1;background:rgba(250,245,236,.05);border:1px solid rgba(250,245,236,.09);border-radius:14px;padding:12px 13px}
+.dt-n{font-family:'Sora',sans-serif;font-weight:700;font-size:19px;color:var(--cream-text);line-height:1}
+.dt-l{font-size:10.5px;color:rgba(250,245,236,.55);margin-top:4px}
 .float-pill{position:absolute;z-index:3;animation:floaty 5s ease-in-out infinite}
 .float-pill:nth-of-type(1){top:6%;left:-3%;animation-delay:.6s}
 .float-pill:nth-of-type(2){top:44%;right:-7%;animation-delay:1.2s}
@@ -257,7 +274,8 @@ footer .bottom{display:flex;justify-content:space-between;align-items:center;gap
 
 /* ===== RESPONSIVE ===== */
 @media(max-width:980px){
-  nav.links,.nav-right .lang{display:none}
+  nav.links{display:none}
+  .nav-right .btn-ghost-d{display:none}
   .burger{display:flex}
   .hero .wrap,.about .grid,.contact .grid{grid-template-columns:1fr}
   .visual{order:1;height:clamp(300px,64vw,400px);margin-top:8px}
@@ -319,7 +337,12 @@ footer .bottom{display:flex;justify-content:space-between;align-items:center;gap
     </div>
     <div class="visual">
       <div class="rings"><i></i><i></i><i></i><i></i></div>
-      <div class="emblem"><span class="glow"></span><span class="M">M</span></div>
+      <div class="dash">
+        <div class="dash-head"><div class="dash-brand"><span class="dot"></span>Sales Doctor</div><div class="dash-period">Bu hafta</div></div>
+        <div class="dash-stat"><div class="dlab">Yetkazib berishlar</div><div class="dnum">1&thinsp;248<span class="dup">&#9650; 12%</span></div></div>
+        <div class="dash-chart"><span style="height:42%"></span><span style="height:60%"></span><span style="height:50%"></span><span style="height:82%"></span><span style="height:66%"></span><span style="height:94%"></span><span style="height:76%"></span></div>
+        <div class="dash-tiles"><div class="dtile"><div class="dt-n">247</div><div class="dt-l">Buyurtma</div></div><div class="dtile"><div class="dt-n">14</div><div class="dt-l">Tuman</div></div><div class="dtile"><div class="dt-n">98%</div><div class="dt-l">O'z vaqtida</div></div></div>
+      </div>
       <span class="pill float-pill"><span class="dot"></span>24 SOATDA</span>
       <span class="pill float-pill"><span class="dot"></span>14 TUMAN</span>
       <span class="pill float-pill"><span class="dot"></span>ISHONCHLI</span>
@@ -540,6 +563,70 @@ document.querySelectorAll('.qa button').forEach(b=>b.addEventListener('click',()
 }));
 // burger -> simple anchor scroll (mobile menu minimal)
 document.getElementById('burger').addEventListener('click',()=>location.hash='#contact');
+
+// ===== i18n UZ<->RU =====
+const RU={
+"Biz haqimizda":"О компании","Xizmatlar":"Услуги","Jarayon":"Процесс","Qamrov":"Охват","Kontakt":"Контакты","Hamkorlik":"Сотрудничество","Ariza":"Заявка",
+"SAMARQAND VILOYATI · 2016-YILDAN BERI":"САМАРКАНДСКАЯ ОБЛАСТЬ · С 2016 ГОДА",
+"Sifatli mahsulot,":"Качественный товар,","o'z vaqtida":"вовремя","yetkazib beriladi":"доставлен",
+"MART Distribution — Samarqand viloyatining barcha tuman va shaharlariga oziq-ovqat va konditer mahsulotlarini ishonchli yetkazib beruvchi yetakchi distribyutor.":"MART Distribution — ведущий дистрибьютор, надёжно доставляющий продукты питания и кондитерские изделия во все районы и города Самаркандской области.",
+"Hamkorlik uchun ariza":"Оставить заявку",
+"yil tajriba":"лет опыта","doimiy mijoz":"постоянных клиентов","ta'minot":"снабжение",
+"24 SOATDA":"ЗА 24 ЧАСА","14 TUMAN":"14 РАЙОНОВ","ISHONCHLI":"НАДЁЖНО",
+"ISHONCHLI TA'MINOT":"НАДЁЖНОЕ СНАБЖЕНИЕ","24 SOATDA YETKAZISH":"ДОСТАВКА ЗА 24 ЧАСА","SALES DOCTOR TIZIMI":"СИСТЕМА SALES DOCTOR","14 TUMAN QAMROV":"ОХВАТ 14 РАЙОНОВ","YIRIK BRENDLAR":"КРУПНЫЕ БРЕНДЫ","INDIVIDUAL SHARTLAR":"ИНДИВИДУАЛЬНЫЕ УСЛОВИЯ",
+"Viloyatning":"Надёжный","ishonchli":"партнёр","hamkori":"области",
+"MART Distribution Co. — 2016-yilda Samarqand viloyatida tashkil etilgan, oziq-ovqat hamda konditer mahsulotlari distribyutsiyasiga ixtisoslashgan kompaniya. Yillar davomida viloyatdagi chakana savdo nuqtalari uchun ishonchli hamkorga aylandik.":"MART Distribution Co. — компания, основанная в 2016 году в Самаркандской области и специализирующаяся на дистрибуции продуктов питания и кондитерских изделий. За годы работы мы стали надёжным партнёром для розничных точек региона.",
+"Maqsadimiz — har bir mijozga sifatli mahsulotni, eng qulay shartlarda va o'z vaqtida yetkazib berish.":"Наша цель — доставлять каждому клиенту качественный товар на самых удобных условиях и точно в срок.",
+"Yirik milliy va xalqaro brendlar bilan rasmiy hamkorlik":"Официальное партнёрство с крупными национальными и международными брендами",
+"20+ avtomobillik o'z transport parki":"Собственный автопарк из 20+ машин",
+"Sales Doctor — shaffof hisob-kitob va nazorat tizimi":"Sales Doctor — прозрачная система учёта и контроля",
+"Faktlar":"Факты","mijoz":"клиентов","Tashkil etilgan":"Основана","2016-yil":"2016 год","Bosh ofis":"Главный офис","Samarqand":"Самарканд","14 tuman":"14 районов","Tajriba":"Опыт","10+ yil":"10+ лет",
+"Biz nimani":"Что мы","taklif qilamiz":"предлагаем",
+"Distribyutsiyadan logistikagacha — chakana savdo nuqtalari uchun to'liq ta'minot zanjiri bir joyda.":"От дистрибуции до логистики — полная цепочка снабжения для розничных точек в одном месте.",
+"Distribyutsiya":"Дистрибуция","Oziq-ovqat va konditer mahsulotlarini chakana savdo nuqtalariga uzluksiz yetkazib berish.":"Бесперебойная доставка продуктов питания и кондитерских изделий в розничные точки.","Oziq-ovqat":"Продукты","Konditer":"Кондитерка",
+"Logistika":"Логистика","20+ avtomobillik transport parki bilan viloyatning barcha hududlariga 24 soatda yetkazish.":"Доставка во все районы области за 24 часа автопарком из 20+ машин.","24 soat":"24 часа",
+"Buyurtma va hisob-kitoblarni aniq, tez va shaffof boshqarish, to'liq nazorat bilan.":"Точное, быстрое и прозрачное управление заказами и расчётами с полным контролем.","Shaffof":"Прозрачно","Nazorat":"Контроль",
+"Individual shartlar":"Индивидуальные условия","Har bir mijozga qulay narxlar va shaxsiy yondashuv — biznesingiz hajmiga moslab.":"Удобные цены и персональный подход для каждого клиента — с учётом масштаба вашего бизнеса.","Moslashuvchan":"Гибко",
+"Hamkorlik qanday":"Как начать","boshlanadi":"сотрудничество",
+"To'rt oddiy qadam — arizadan doimiy ta'minotgacha. Biz har bosqichda yoningizdamiz.":"Четыре простых шага — от заявки до постоянного снабжения. Мы рядом на каждом этапе.",
+"Ariza qoldirasiz":"Оставляете заявку","Quyidagi formani to'ldirasiz yoki bevosita qo'ng'iroq qilasiz.":"Заполняете форму ниже или звоните напрямую.",
+"Shartlarni kelishamiz":"Согласуем условия","Biznesingiz uchun individual narx va ta'minot shartlari.":"Индивидуальная цена и условия снабжения для вашего бизнеса.",
+"Yetkazishni boshlaymiz":"Начинаем доставку","Birinchi yetkazib berish 24 soat ichida amalga oshiriladi.":"Первая доставка осуществляется в течение 24 часов.",
+"Doimiy ta'minot":"Постоянное снабжение","Uzluksiz ta'minot va Sales Doctor orqali to'liq nazorat.":"Бесперебойное снабжение и полный контроль через Sales Doctor.",
+"Nega aynan MART":"Почему именно MART","Farqni o'zingiz":"Вы сами","his qilasiz":"почувствуете разницу",
+"Distribyutorni tanlash oson emas — biz ishonch, tezlik va shaffoflik bilan ajralib turamiz.":"Выбрать дистрибьютора непросто — мы выделяемся надёжностью, скоростью и прозрачностью.",
+"24 soatda":"За 24 часа","Aniq va o'z vaqtida yetkazib berish kafolati.":"Гарантия точной и своевременной доставки.",
+"Yuqori sifat":"Высокое качество","Faqat ishonchli brendlar va sertifikatlangan mahsulot.":"Только надёжные бренды и сертифицированная продукция.",
+"Shaffoflik":"Прозрачность","Sales Doctor bilan har bir buyurtma nazorat ostida.":"С Sales Doctor каждый заказ под контролем.",
+"Individual narx":"Индивидуальная цена","Har bir mijozga biznes hajmiga mos shartlar.":"Условия по масштабу бизнеса для каждого клиента.",
+"Hamkorlar":"Партнёры","Biz bilan ishlagan":"Бренды, с которыми","brendlar":"мы работаем","Yirik milliy va xalqaro brendlarning ishonchli distribyutsiya hamkori.":"Надёжный дистрибуционный партнёр крупных национальных и международных брендов.",
+"Samarqand viloyati":"Самаркандская область","to'liq qamrovda":"под полным охватом",
+"Viloyatning barcha 14 tuman va shahriga yetkazib beramiz — markazdan eng chekka hududlargacha.":"Доставляем во все 14 районов и городов области — от центра до самых отдалённых уголков.",
+"tuman va shahar":"районов и городов","viloyat qamrovi":"охват области","yetkazish avtomobili":"машин доставки",
+"Savollar":"Вопросы","Ko'p so'raladigan":"Часто задаваемые","savollar":"вопросы",
+"Qaysi hududlarga yetkazib berasiz?":"В какие районы вы доставляете?","Samarqand viloyatining barcha 14 tuman va shahriga, shu jumladan eng chekka hududlarga ham yetkazib beramiz.":"Мы доставляем во все 14 районов и городов Самаркандской области, включая самые отдалённые.",
+"Yetkazib berish qancha vaqt oladi?":"Сколько времени занимает доставка?","Standart buyurtmalar 24 soat ichida yetkaziladi. Shoshilinch holatlarda esa shu kunning o'zida ham imkoniyat bor.":"Стандартные заказы доставляются в течение 24 часов. В срочных случаях возможна доставка в тот же день.",
+"Qanday mahsulotlarni yetkazasiz?":"Какие товары вы поставляете?","Oziq-ovqat va konditer mahsulotlari — yirik milliy va xalqaro brendlarning keng assortimenti.":"Продукты питания и кондитерские изделия — широкий ассортимент крупных национальных и международных брендов.",
+"Narxlar va shartlar qanday belgilanadi?":"Как определяются цены и условия?","Har bir mijoz uchun biznes hajmiga qarab individual narx va to'lov shartlari taklif qilinadi.":"Для каждого клиента предлагаются индивидуальные цены и условия оплаты в зависимости от масштаба бизнеса.",
+"Hisob-kitob qanday yuritiladi?":"Как ведётся учёт и расчёты?","Barcha hisob-kitoblar Sales Doctor tizimi orqali shaffof va aniq tarzda yuritiladi.":"Все расчёты ведутся прозрачно и точно через систему Sales Doctor.",
+"KELING, BIRGA ISHLAYLIK":"ДАВАЙТЕ РАБОТАТЬ ВМЕСТЕ","Hamkorlikni":"Начните сотрудничество","bugun":"сегодня","boshlang":"",
+"Ariza qoldiring — jamoamiz siz bilan bog'lanib, biznesingiz uchun eng qulay shartlarni taklif qiladi.":"Оставьте заявку — наша команда свяжется с вами и предложит самые удобные условия для вашего бизнеса.",
+"Biz bilan":"Свяжитесь","bog'laning":"с нами","Hamkorlik, buyurtma yoki savollaringiz bo'lsa — biz har doim aloqaga tayyormiz.":"По вопросам сотрудничества, заказам или любым вопросам — мы всегда на связи.",
+"Telefon":"Телефон","Joylashuv":"Адрес","Samarqand viloyati, O'zbekiston":"Самаркандская область, Узбекистан","@martdistribution":"@martdistribution",
+"Hamkorlik uchun ariza ":"Заявка на сотрудничество","Maydonlarni to'ldiring — tez orada siz bilan bog'lanamiz.":"Заполните поля — мы скоро свяжемся с вами.",
+"Ism / Tashkilot":"Имя / Организация","Ismingiz yoki tashkilot nomi":"Ваше имя или название организации",
+"Biznes turi":"Тип бизнеса","Tanlang...":"Выберите...","Do'kon / market":"Магазин / маркет","Ulgurji savdo":"Оптовая торговля","Boshqa":"Другое",
+"Xabar":"Сообщение","Qisqacha so'rovingizni yozing...":"Кратко опишите ваш запрос...","Ariza yuborish":"Отправить заявку",
+"2016-yildan beri Samarqand viloyatining ishonchli oziq-ovqat va konditer distribyutori.":"С 2016 года — надёжный дистрибьютор продуктов питания и кондитерских изделий Самаркандской области.",
+"Bo'limlar":"Разделы","Hujjatlar":"Документы","Aloqa":"Контакты",
+"© 2026 MART Distribution Co. — Barcha huquqlar himoyalangan.":"© 2026 MART Distribution Co. — Все права защищены.","Samarqand · O'zbekiston":"Самарканд · Узбекистан","Samarqand sh.":"Самарканд","Kattaqo'rg'on":"Каттакурган","Urgut":"Ургут","Bulung'ur":"Булунгур","Jomboy":"Джамбай","Ishtixon":"Иштыхан","Oqdaryo":"Акдарья","Narpay":"Нарпай","Nurobod":"Нурабад","Paxtachi":"Пахтачи","Payariq":"Пайарык","Pastdarg'om":"Пастдаргом","Qo'shrabot":"Кушрабат","Tayloq":"Тайлак","Bu hafta":"За неделю","Yetkazib berishlar":"Доставки","Buyurtma":"Заказы","Tuman":"Районов","O'z vaqtida":"Вовремя"
+};
+const _snap=[];(function(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(n){if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;const p=n.parentElement,t=p&&p.tagName;if(!p||t==='SCRIPT'||t==='STYLE')return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});let n;while((n=w.nextNode()))_snap.push({n,uz:n.nodeValue});})();
+const _ph=[...document.querySelectorAll('[placeholder]')].map(el=>({el,uz:el.getAttribute('placeholder')}));
+const _op=[...document.querySelectorAll('option')].map(el=>({el,uz:el.textContent}));
+function applyLang(lang){_snap.forEach(s=>{const k=s.uz.trim();s.n.nodeValue=(lang==='ru'&&RU[k]!=null)?s.uz.replace(k,RU[k]):s.uz;});_ph.forEach(s=>{const k=s.uz.trim();s.el.setAttribute('placeholder',(lang==='ru'&&RU[k]!=null)?RU[k]:s.uz);});_op.forEach(s=>{const k=s.uz.trim();s.el.textContent=(lang==='ru'&&RU[k]!=null)?RU[k]:s.uz;});document.documentElement.lang=lang;document.querySelectorAll('.lang span').forEach(sp=>sp.classList.toggle('on',sp.textContent.trim().toLowerCase()===lang));try{localStorage.setItem('mart_lang',lang);}catch(e){}}
+document.querySelectorAll('.lang span').forEach(sp=>sp.addEventListener('click',()=>applyLang(sp.textContent.trim().toLowerCase())));
+(function(){try{if(localStorage.getItem('mart_lang')==='ru')applyLang('ru');}catch(e){}})();
 </script>
 </body>
 </html>
