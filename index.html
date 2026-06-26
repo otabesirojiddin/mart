@@ -39,6 +39,7 @@ document.addEventListener('DOMContentLoaded', async function() {
 
   // Error sink persists across replaceWith since it's on window, not the DOM.
   window.addEventListener('error', function(e) {
+    if (!e.message) { return; }
     var p = document.body || document.documentElement;
     var d = document.getElementById('__bundler_err') || p.appendChild(document.createElement('div'));
     d.id = '__bundler_err';
@@ -160,6 +161,11 @@ document.addEventListener('DOMContentLoaded', async function() {
     if (window.Babel && typeof window.Babel.transformScriptTags === 'function') {
       window.Babel.transformScriptTags();
     }
+    try {
+      var __bg = document.createElement('style');
+      __bg.textContent = 'main#top>section:first-of-type{background-image:radial-gradient(rgba(0,69,24,.05) 1px,transparent 1.5px),radial-gradient(1100px 700px at 88% -12%,rgba(224,168,61,.30),transparent 55%),radial-gradient(1000px 820px at -8% 16%,rgba(168,208,74,.34),transparent 55%),linear-gradient(165deg,#e9f2d0 0%,#faf5ec 52%,#f6e8cc 100%);background-size:24px 24px,auto,auto,auto;background-repeat:repeat,no-repeat,no-repeat,no-repeat}#about,#why,#brands,#contact{background-image:radial-gradient(rgba(0,69,24,.045) 1px,transparent 1.5px)!important;background-size:24px 24px!important}';
+      document.head.appendChild(__bg);
+    } catch (e) {}
   } catch (err) {
     setStatus('Error unpacking: ' + err.message);
     console.error('Bundle unpack error:', err);
