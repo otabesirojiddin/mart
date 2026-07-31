@@ -264,6 +264,12 @@ header.nav.solid .burger span{background:var(--ink)}
 .field input:focus,.field select:focus,.field textarea:focus{outline:0;border-color:var(--gold-deep)}
 .field textarea{resize:vertical;min-height:90px}
 .form .btn{width:100%;justify-content:center;margin-top:6px}
+.form .btn[disabled]{opacity:.6;cursor:default;transform:none}
+.field input.err,.field select.err,.field textarea.err{border-color:#c0392b;background:#fdf3f2}
+.hp{position:absolute!important;left:-9999px;width:1px;height:1px;opacity:0;pointer-events:none}
+.form-msg{margin-top:14px;font-size:14.5px;line-height:1.5;text-align:center;min-height:1px}
+.form-msg.ok{color:#0a6e30;font-weight:600}
+.form-msg.bad{color:#c0392b;font-weight:600}
 
 /* ===== FOOTER ===== */
 footer{background:linear-gradient(180deg,#04210f 0%,#010b06 100%);color:var(--cream-text);padding:70px 0 30px}
@@ -610,15 +616,17 @@ footer .bottom{display:flex;justify-content:space-between;align-items:center;gap
         <a href="#"><span class="ic"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></span><div><div class="k">Joylashuv</div><div class="v">Samarqand viloyati, O'zbekiston</div></div></a>
         <a href="https://instagram.com/martdistribution" target="_blank" rel="noopener"><span class="ic"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg></span><div><div class="k">Instagram</div><div class="v">@martdistribution</div></div></a>
       </div>
-      <form class="form reveal" onsubmit="return false">
+      <form class="form reveal" id="leadForm" novalidate>
         <h3>Hamkorlik uchun ariza</h3>
         <p class="sub">Maydonlarni to'ldiring — tez orada siz bilan bog'lanamiz.</p>
-        <div class="field"><label>Ism / Tashkilot</label><input type="text" placeholder="Ismingiz yoki tashkilot nomi"></div>
-        <div class="field"><label>Telefon</label><input type="tel" placeholder="+998 __ ___ __ __"></div>
-        <div class="field"><label>Biznes turi</label><select><option>Tanlang...</option><option>Do'kon / market</option><option>Ulgurji savdo</option><option>HoReCa</option><option>Boshqa</option></select></div>
-        <div class="field"><label>Xabar</label><textarea placeholder="Qisqacha so'rovingizni yozing..."></textarea></div>
-        <button class="btn btn-gold">Ariza yuborish
+        <div class="field"><label for="f-name">Ism / Tashkilot</label><input id="f-name" name="name" type="text" autocomplete="name" placeholder="Ismingiz yoki tashkilot nomi"></div>
+        <div class="field"><label for="f-phone">Telefon</label><input id="f-phone" name="phone" type="tel" autocomplete="tel" placeholder="+998 __ ___ __ __"></div>
+        <div class="field"><label for="f-type">Biznes turi</label><select id="f-type" name="type"><option>Tanlang...</option><option>Do'kon / market</option><option>Ulgurji savdo</option><option>HoReCa</option><option>Boshqa</option></select></div>
+        <div class="field"><label for="f-msg">Xabar</label><textarea id="f-msg" name="message" placeholder="Qisqacha so'rovingizni yozing..."></textarea></div>
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button class="btn btn-gold" type="submit">Ariza yuborish
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <p class="form-msg" id="formMsg" role="status" aria-live="polite"></p>
       </form>
     </div>
   </div>
@@ -656,6 +664,49 @@ addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>40));
 // reveal on scroll
 const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+// ===== LEAD FORM -> Google Sheets =====
+// Apps Script web-app URL. Bo'sh bo'lsa forma yubormaydi, telefonga yo'naltiradi.
+const SHEET_URL = "";
+(function(){
+  const form=document.getElementById('leadForm'); if(!form)return;
+  const msg=document.getElementById('formMsg'), btn=form.querySelector('button[type=submit]');
+  const F=n=>form.querySelector('[name="'+n+'"]');
+  const T={
+    uz:{req:"Ism va telefon raqamini kiriting.",tel:"Telefon raqamini to'liq kiriting.",send:"Yuborilmoqda...",btn:"Ariza yuborish",
+        ok:"Rahmat! Arizangiz qabul qilindi — tez orada bog'lanamiz.",bad:"Yuborishda xatolik. Iltimos, +998 55 706 01 10 raqamiga qo'ng'iroq qiling."},
+    ru:{req:"Введите имя и номер телефона.",tel:"Введите номер телефона полностью.",send:"Отправляется...",btn:"Отправить заявку",
+        ok:"Спасибо! Заявка принята — мы скоро свяжемся с вами.",bad:"Ошибка отправки. Пожалуйста, позвоните на +998 55 706 01 10."},
+    en:{req:"Please enter your name and phone number.",tel:"Please enter a complete phone number.",send:"Sending...",btn:"Send request",
+        ok:"Thank you! Your request has been received — we'll be in touch shortly.",bad:"Could not send. Please call +998 55 706 01 10."}
+  };
+  const t=()=>T[document.documentElement.lang]||T.uz;
+  const show=(txt,cls)=>{msg.textContent=txt;msg.className='form-msg '+cls};
+  const mark=(el,bad)=>{el.classList.toggle('err',!!bad)};
+
+  form.addEventListener('submit',async e=>{
+    e.preventDefault();
+    if(F('website').value) return;                       // spam-bot tuzog'i
+    const name=F('name').value.trim(), phone=F('phone').value.trim();
+    const type=F('type').value, message=F('message').value.trim();
+    mark(F('name'),!name); mark(F('phone'),!phone);
+    if(!name||!phone){show(t().req,'bad');(name?F('phone'):F('name')).focus();return}
+    if(phone.replace(/\D/g,'').length<9){mark(F('phone'),true);show(t().tel,'bad');F('phone').focus();return}
+    if(!SHEET_URL){show(t().bad,'bad');return}
+
+    const label=btn.childNodes[0]; const orig=label.nodeValue;
+    btn.disabled=true; label.nodeValue=t().send+' '; show('','');
+    try{
+      await fetch(SHEET_URL,{method:'POST',mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify({name,phone,type:type==='Tanlang...'?'':type,message,
+          lang:document.documentElement.lang,page:location.href})});
+      form.reset(); show(t().ok,'ok');
+    }catch(err){ show(t().bad,'bad'); }
+    finally{ btn.disabled=false; label.nodeValue=orig; }
+  });
+  ['name','phone'].forEach(n=>F(n).addEventListener('input',()=>mark(F(n),false)));
+})();
+
 // video: click-to-play (preload none, controls appear after first play)
 document.querySelectorAll('.vid').forEach(box=>{
   const v=box.querySelector('video'), btn=box.querySelector('.pbtn');
