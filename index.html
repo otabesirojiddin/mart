@@ -666,7 +666,7 @@ const io=new IntersectionObserver((es)=>es.forEach(e=>{if(e.isIntersecting){e.ta
 document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 // ===== LEAD FORM -> Google Sheets =====
 // Apps Script web-app URL. Bo'sh bo'lsa forma yubormaydi, telefonga yo'naltiradi.
-const SHEET_URL = "";
+const SHEET_URL = "https://script.google.com/macros/s/AKfycbxp8WwvTyksOV4eSSp54bFtPrlGhW5ROLvWrIQu6UfS7EV14ApWT3IcX3EF4kIeR5ovlg/exec";
 (function(){
   const form=document.getElementById('leadForm'); if(!form)return;
   const msg=document.getElementById('formMsg'), btn=form.querySelector('button[type=submit]');
