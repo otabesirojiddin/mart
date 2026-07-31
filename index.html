@@ -271,6 +271,18 @@ header.nav.solid .burger span{background:var(--ink)}
 .form-msg.ok{color:#0a6e30;font-weight:600}
 .form-msg.bad{color:#c0392b;font-weight:600}
 
+/* ===== SUCCESS MODAL ===== */
+.modal{position:fixed;inset:0;z-index:300;display:grid;place-items:center;padding:24px;background:rgba(3,23,12,.72);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);opacity:0;visibility:hidden;transition:opacity .3s ease,visibility .3s}
+.modal.on{opacity:1;visibility:visible}
+.modal .box{width:100%;max-width:520px;background:var(--cream);border-radius:var(--rl);padding:clamp(34px,5vw,52px) clamp(26px,4vw,44px);text-align:center;box-shadow:0 40px 90px rgba(3,23,12,.45);transform:translateY(18px) scale(.96);transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.modal.on .box{transform:none}
+.modal .tick{width:92px;height:92px;margin:0 auto 26px;border-radius:50%;background:var(--gold-grad);display:grid;place-items:center;box-shadow:0 16px 40px rgba(201,162,39,.4)}
+.modal .tick svg{width:46px;height:46px;fill:none;stroke:var(--green-950);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.modal h3{font-size:clamp(28px,4vw,38px);margin-bottom:14px;color:var(--ink)}
+.modal p{font-size:clamp(15.5px,1.7vw,17.5px);color:var(--muted);line-height:1.6;margin-bottom:30px}
+.modal .btn{min-width:190px;justify-content:center}
+@media(max-width:560px){.modal .tick{width:76px;height:76px;margin-bottom:20px}.modal .tick svg{width:38px;height:38px}}
+
 /* ===== FOOTER ===== */
 footer{background:linear-gradient(180deg,#04210f 0%,#010b06 100%);color:var(--cream-text);padding:70px 0 30px}
 footer .top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1.3fr;gap:40px}
@@ -632,6 +644,16 @@ footer .bottom{display:flex;justify-content:space-between;align-items:center;gap
   </div>
 </section>
 
+<!-- SUCCESS MODAL -->
+<div class="modal" id="okModal" role="dialog" aria-modal="true" aria-labelledby="okTitle">
+  <div class="box">
+    <div class="tick"><svg viewBox="0 0 24 24"><path d="M4 12.5l5.2 5.2L20 7"/></svg></div>
+    <h3 id="okTitle">Rahmat!</h3>
+    <p id="okText">Arizangiz qabul qilindi — tez orada siz bilan bog'lanamiz.</p>
+    <button class="btn btn-dark" id="okClose" type="button">Yopish</button>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="wrap">
@@ -672,16 +694,41 @@ const SHEET_URL = "https://script.google.com/macros/s/AKfycbxp8WwvTyksOV4eSSp54b
   const msg=document.getElementById('formMsg'), btn=form.querySelector('button[type=submit]');
   const F=n=>form.querySelector('[name="'+n+'"]');
   const T={
-    uz:{req:"Ism va telefon raqamini kiriting.",tel:"Telefon raqamini to'liq kiriting.",send:"Yuborilmoqda...",btn:"Ariza yuborish",
-        ok:"Rahmat! Arizangiz qabul qilindi — tez orada bog'lanamiz.",bad:"Yuborishda xatolik. Iltimos, +998 55 706 01 10 raqamiga qo'ng'iroq qiling."},
-    ru:{req:"Введите имя и номер телефона.",tel:"Введите номер телефона полностью.",send:"Отправляется...",btn:"Отправить заявку",
-        ok:"Спасибо! Заявка принята — мы скоро свяжемся с вами.",bad:"Ошибка отправки. Пожалуйста, позвоните на +998 55 706 01 10."},
-    en:{req:"Please enter your name and phone number.",tel:"Please enter a complete phone number.",send:"Sending...",btn:"Send request",
-        ok:"Thank you! Your request has been received — we'll be in touch shortly.",bad:"Could not send. Please call +998 55 706 01 10."}
+    uz:{req:"Ism va telefon raqamini kiriting.",tel:"Telefon raqamini to'liq kiriting.",send:"Yuborilmoqda...",
+        bad:"Yuborishda xatolik. Iltimos, +998 55 706 01 10 raqamiga qo'ng'iroq qiling.",
+        mt:"Rahmat!",mp:"Arizangiz qabul qilindi — tez orada siz bilan bog'lanamiz.",mb:"Yopish"},
+    ru:{req:"Введите имя и номер телефона.",tel:"Введите номер телефона полностью.",send:"Отправляется...",
+        bad:"Ошибка отправки. Пожалуйста, позвоните на +998 55 706 01 10.",
+        mt:"Спасибо!",mp:"Заявка принята — мы скоро свяжемся с вами.",mb:"Закрыть"},
+    en:{req:"Please enter your name and phone number.",tel:"Please enter a complete phone number.",send:"Sending...",
+        bad:"Could not send. Please call +998 55 706 01 10.",
+        mt:"Thank you!",mp:"Your request has been received — we'll be in touch shortly.",mb:"Close"}
   };
   const t=()=>T[document.documentElement.lang]||T.uz;
   const show=(txt,cls)=>{msg.textContent=txt;msg.className='form-msg '+cls};
   const mark=(el,bad)=>{el.classList.toggle('err',!!bad)};
+
+  // katta muvaffaqiyat oynasi
+  const modal=document.getElementById('okModal'), mClose=document.getElementById('okClose');
+  let lastFocus=null;
+  const openModal=()=>{
+    const L=t();
+    document.getElementById('okTitle').textContent=L.mt;
+    document.getElementById('okText').textContent=L.mp;
+    mClose.textContent=L.mb;
+    lastFocus=document.activeElement;
+    modal.classList.add('on');
+    document.body.style.overflow='hidden';
+    setTimeout(()=>mClose.focus(),120);
+  };
+  const closeModal=()=>{
+    modal.classList.remove('on');
+    document.body.style.overflow='';
+    if(lastFocus&&lastFocus.focus)lastFocus.focus();
+  };
+  mClose.addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{if(e.target===modal)closeModal()});
+  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&modal.classList.contains('on'))closeModal()});
 
   form.addEventListener('submit',async e=>{
     e.preventDefault();
@@ -700,7 +747,7 @@ const SHEET_URL = "https://script.google.com/macros/s/AKfycbxp8WwvTyksOV4eSSp54b
         headers:{'Content-Type':'text/plain;charset=utf-8'},
         body:JSON.stringify({name,phone,type:type==='Tanlang...'?'':type,message,
           lang:document.documentElement.lang,page:location.href})});
-      form.reset(); show(t().ok,'ok');
+      form.reset(); show('',''); openModal();
     }catch(err){ show(t().bad,'bad'); }
     finally{ btn.disabled=false; label.nodeValue=orig; }
   });
