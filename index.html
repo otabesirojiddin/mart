@@ -348,6 +348,16 @@ footer .bottom{display:flex;justify-content:space-between;align-items:center;gap
 .fl-uz{background:linear-gradient(#1eb4e7 0 33.3%,#fff 33.3% 66.6%,#1aad6a 66.6% 100%)}
 .fl-ru{background:linear-gradient(#fff 0 33.3%,#0039a6 33.3% 66.6%,#d52b1e 66.6% 100%)}
 .fl-en{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20viewBox%3D%270%200%2060%2030%27%3E%3Crect%20width%3D%2760%27%20height%3D%2730%27%20fill%3D%27%23012169%27%2F%3E%3Cpath%20d%3D%27M0%2C0%20L60%2C30%20M60%2C0%20L0%2C30%27%20stroke%3D%27%23fff%27%20stroke-width%3D%276%27%2F%3E%3Cpath%20d%3D%27M0%2C0%20L60%2C30%20M60%2C0%20L0%2C30%27%20stroke%3D%27%23C8102E%27%20stroke-width%3D%274%27%2F%3E%3Cpath%20d%3D%27M30%2C0%20L30%2C30%20M0%2C15%20L60%2C15%27%20stroke%3D%27%23fff%27%20stroke-width%3D%2710%27%2F%3E%3Cpath%20d%3D%27M30%2C0%20L30%2C30%20M0%2C15%20L60%2C15%27%20stroke%3D%27%23C8102E%27%20stroke-width%3D%276%27%2F%3E%3C%2Fsvg%3E") center/cover;background-color:#012169}
+.fl-zh{background:url("data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2030%2020%27%3E%3Crect%20width=%2730%27%20height=%2720%27%20fill=%27%23de2910%27/%3E%3Cg%20fill=%27%23ffde00%27%3E%3Cpath%20d=%27M5%202.4l1.06%203.26h3.43l-2.78%202.02%201.06%203.26L5%208.92l-2.77%202.02%201.06-3.26L.51%205.66h3.43z%27/%3E%3Ccircle%20cx=%2711.6%27%20cy=%272.1%27%20r=%27.95%27/%3E%3Ccircle%20cx=%2713.6%27%20cy=%274.2%27%20r=%27.95%27/%3E%3Ccircle%20cx=%2713.6%27%20cy=%277.1%27%20r=%27.95%27/%3E%3Ccircle%20cx=%2711.6%27%20cy=%279.2%27%20r=%27.95%27/%3E%3C/g%3E%3C/svg%3E") center/cover;background-color:#de2910}
+
+/* ===== CJK (xitoy tili) ===== */
+html[lang="zh"] body,html[lang="zh"] input,html[lang="zh"] select,html[lang="zh"] textarea,html[lang="zh"] button{font-family:'Manrope','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',system-ui,sans-serif}
+html[lang="zh"] h1,html[lang="zh"] h2,html[lang="zh"] h3,html[lang="zh"] .eyebrow,html[lang="zh"] .btn,html[lang="zh"] .pill{font-family:'Sora','PingFang SC','Hiragino Sans GB','Microsoft YaHei','Noto Sans SC',sans-serif}
+html[lang="zh"] .serif{font-family:'Songti SC','Noto Serif SC','SimSun',Georgia,serif;font-style:normal}
+html[lang="zh"] .eyebrow{letter-spacing:.10em}
+/* sarlavhalar ieroglif orasidan bo'linmasin — faqat probel/tinish belgisida ko'chsin */
+html[lang="zh"] h1,html[lang="zh"] h2,html[lang="zh"] h3{word-break:keep-all;line-height:1.25}
+html[lang="zh"] .btn,html[lang="zh"] .pill,html[lang="zh"] .tags span,html[lang="zh"] .lang-list span{word-break:keep-all;white-space:nowrap}
 
 /* ===== PRODUCERS (for manufacturers) ===== */
 .producers{background:linear-gradient(160deg,#04401a 0%,#03170c 66%,#020f07 100%);color:var(--cream-text);position:relative;overflow:hidden}
@@ -394,7 +404,7 @@ footer .bottom{display:flex;justify-content:space-between;align-items:center;gap
       <a href="#contact">Kontakt</a>
     </nav>
     <div class="nav-right">
-      <div class="lang"><button class="lang-btn" type="button" aria-label="Til / Language"><i class="fl fl-uz"></i><b>UZ</b><span class="cv"></span></button><div class="lang-list"><span class="on" data-l="uz"><i class="fl fl-uz"></i>UZ</span><span data-l="ru"><i class="fl fl-ru"></i>RU</span><span data-l="en"><i class="fl fl-en"></i>EN</span></div></div>
+      <div class="lang"><button class="lang-btn" type="button" aria-label="Til / Language"><i class="fl fl-uz"></i><b>UZ</b><span class="cv"></span></button><div class="lang-list"><span class="on" data-l="uz"><i class="fl fl-uz"></i>UZ</span><span data-l="ru"><i class="fl fl-ru"></i>RU</span><span data-l="en"><i class="fl fl-en"></i>EN</span><span data-l="zh"><i class="fl fl-zh"></i>中文</span></div></div>
       <a href="#contact" class="btn btn-ghost-d">Hamkorlik</a>
       <button class="burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -702,7 +712,10 @@ const SHEET_URL = "https://script.google.com/macros/s/AKfycbxp8WwvTyksOV4eSSp54b
         mt:"Спасибо!",mp:"Заявка принята — мы скоро свяжемся с вами.",mb:"Закрыть"},
     en:{req:"Please enter your name and phone number.",tel:"Please enter a complete phone number.",send:"Sending...",
         bad:"Could not send. Please call +998 55 706 01 10.",
-        mt:"Thank you!",mp:"Your request has been received — we'll be in touch shortly.",mb:"Close"}
+        mt:"Thank you!",mp:"Your request has been received — we'll be in touch shortly.",mb:"Close"},
+    zh:{req:"请填写您的姓名和电话号码。",tel:"请填写完整的电话号码。",send:"提交中...",
+        bad:"提交失败，请致电 +998 55 706 01 10。",
+        mt:"感谢您！",mp:"我们已收到您的申请 —— 会尽快与您联系。",mb:"关闭"}
   };
   const t=()=>T[document.documentElement.lang]||T.uz;
   const show=(txt,cls)=>{msg.textContent=txt;msg.className='form-msg '+cls};
@@ -903,16 +916,83 @@ const EN={
 "Kelishamiz":"We agree","Mahsulot, hajm va shartlarni ko'rib chiqamiz":"We review the product, volumes and terms",
 "Bozorga chiqaramiz":"We bring it to market","Mahsulotingiz tarmoq bo'ylab sotuvga tushadi":"Your product goes on sale across the network"
 };
-const DICT={ru:RU,en:EN};
+const ZH={
+"Biz haqimizda":"关于我们","Xizmatlar":"服务","Jarayon":"流程","Qamrov":"覆盖范围","Kontakt":"联系我们","Hamkorlik":"合作","Ariza":"申请","Zavodlarga":"致生产商",
+"SAMARQAND VILOYATI · 2016-YILDAN BERI":"撒马尔罕州 · 始于 2016 年",
+"Sifatli mahsulot,":"优质产品，","o'z vaqtida":"准时","yetkazib beriladi":"送达",
+"MART Distribution — Samarqand viloyatining barcha tuman va shaharlariga oziq-ovqat va qandolat mahsulotlarini ishonchli yetkazib beruvchi yetakchi distribyutor.":"MART Distribution 是撒马尔罕州领先的分销商，为全州各区县和城市可靠地配送食品与糖果类产品。",
+"Hamkorlik uchun ariza":"成为合作伙伴",
+"yil tajriba":"年经验","doimiy mijoz":"长期客户","ta'minot":"供应",
+"24/7":"24/7","14 TUMAN":"14 个区县","ISHONCHLI":"值得信赖",
+"ISHONCHLI TA'MINOT":"可靠供应","24/7 YETKAZISH":"24/7 配送","SALES DOCTOR TIZIMI":"SALES DOCTOR 系统","14 TUMAN QAMROV":"覆盖 14 个区县","YIRIK BRENDLAR":"知名品牌","INDIVIDUAL SHARTLAR":"专属条件",
+"Viloyatning":"撒马尔罕州","ishonchli":"值得信赖的","hamkori":"合作伙伴",
+"MART Distribution Co. — 2016-yilda Samarqand viloyatida tashkil etilgan, oziq-ovqat hamda qandolat mahsulotlari distribyutsiyasiga ixtisoslashgan kompaniya. Yillar davomida viloyatdagi chakana savdo nuqtalari uchun ishonchli hamkorga aylandik.":"MART Distribution Co. 成立于 2016 年，总部位于撒马尔罕州，专注于食品及糖果类产品的分销。多年来，我们已成为全州零售门店值得信赖的合作伙伴。",
+"Maqsadimiz — har bir mijozga sifatli mahsulotni, eng qulay shartlarda va o'z vaqtida yetkazib berish.":"我们的目标是以最优惠的条件，将优质产品准时送达每一位客户。",
+"Yirik milliy va xalqaro brendlar bilan rasmiy hamkorlik":"与国内外知名品牌建立官方合作",
+"20+ avtomobillik o'z transport parki":"拥有 20+ 辆自有配送车队",
+"Sales Doctor — shaffof hisob-kitob va nazorat tizimi":"Sales Doctor —— 透明的结算与管控系统",
+"Faktlar":"数据","mijoz":"客户","Tashkil etilgan":"成立时间","2016-yil":"2016 年","Bosh ofis":"总部","Samarqand shahar":"撒马尔罕市","14 tuman":"14 个区县","Tajriba":"从业经验","10+ yil":"10+ 年",
+"Biz nimani":"我们能为您","taklif qilamiz":"提供什么",
+"Distribyutsiyadan logistikagacha — chakana savdo nuqtalari uchun to'liq ta'minot zanjiri bir joyda.":"从分销到物流 —— 为零售门店提供一站式完整供应链。",
+"Distribyutsiya":"分销","Oziq-ovqat va qandolat mahsulotlarini chakana savdo nuqtalariga uzluksiz yetkazib berish.":"向零售门店不间断配送食品与糖果类产品。",
+"Oziq-ovqat":"食品","Qandolat":"糖果",
+"Logistika":"物流","20+ avtomobillik transport parki bilan viloyatning barcha hududlariga 24/7 yetkazish.":"凭借 20+ 辆车队，全天候向全州各地区配送。",
+"Buyurtma va hisob-kitoblarni aniq, tez va shaffof boshqarish, to'liq nazorat bilan.":"精准、快速、透明地管理订单与结算，全程可控。","Shaffof":"透明","Nazorat":"管控",
+"Individual shartlar":"专属条件","Har bir mijozga qulay narxlar va shaxsiy yondashuv — biznesingiz hajmiga moslab.":"为每位客户提供优惠价格与个性化方案 —— 依据您的业务规模量身定制。","Moslashuvchan":"灵活",
+"Hamkorlik qanday":"合作如何","boshlanadi":"开始",
+"To'rt oddiy qadam — arizadan doimiy ta'minotgacha. Biz har bosqichda yoningizdamiz.":"四个简单步骤 —— 从提交申请到长期供货。每个环节我们都与您同行。",
+"Ariza qoldirasiz":"提交申请","Quyidagi formani to'ldirasiz yoki bevosita qo'ng'iroq qilasiz.":"填写下方表单，或直接致电我们。",
+"Shartlarni kelishamiz":"商定条件","Biznesingiz uchun individual narx va ta'minot shartlari.":"为您的业务制定专属价格与供货条件。",
+"Yetkazishni boshlaymiz":"开始配送","Birinchi yetkazib berish 24 soat ichida amalga oshiriladi.":"首次配送将在 24 小时内完成。",
+"Doimiy ta'minot":"长期供货","Uzluksiz ta'minot va Sales Doctor orqali to'liq nazorat.":"不间断供货，并通过 Sales Doctor 实现全程管控。",
+"Nega aynan MART":"为何选择 MART","Farqni o'zingiz":"亲自感受","his qilasiz":"其中的不同",
+"Distribyutorni tanlash oson emas — biz ishonch, tezlik va shaffoflik bilan ajralib turamiz.":"选择分销商并不容易 —— 我们以可靠、高效与透明脱颖而出。",
+"Aniq va o'z vaqtida yetkazib berish kafolati.":"保证精准、准时的配送。",
+"Yuqori sifat":"品质保障","Faqat ishonchli brendlar va sertifikatlangan mahsulot.":"只做可信赖的品牌与经认证的产品。",
+"Shaffoflik":"全程透明","Sales Doctor bilan har bir buyurtma nazorat ostida.":"借助 Sales Doctor，每一笔订单都在掌控之中。",
+"Individual narx":"专属价格","Har bir mijozga biznes hajmiga mos shartlar.":"依据每位客户的业务规模匹配相应条件。","2022-yil":"2022 年",
+"Hamkorlar":"合作伙伴","Biz bilan ishlagan":"与我们合作过的","brendlar":"品牌","Yirik milliy va xalqaro brendlarning ishonchli distribyutsiya hamkori.":"国内外知名品牌值得信赖的分销伙伴。",
+"Samarqand viloyati":"撒马尔罕州","to'liq qamrovda":"全境覆盖",
+"Viloyatning barcha 14 tuman va shahriga yetkazib beramiz — markazdan eng chekka hududlargacha.":"我们配送至全州 14 个区县及城市 —— 从中心城区直至最偏远的地方。",
+"tuman va shahar":"区县与城市","viloyat qamrovi":"全州覆盖率","yetkazish avtomobili":"辆配送车",
+"Savollar":"常见问题","Ko'p so'raladigan":"常见","savollar":"问题",
+"Qaysi hududlarga yetkazib berasiz?":"你们配送到哪些地区？","Samarqand viloyatining barcha 14 tuman va shahriga, shu jumladan eng chekka hududlarga ham yetkazib beramiz.":"我们配送至撒马尔罕州全部 14 个区县及城市，包括最偏远的地区。",
+"Yetkazib berish qancha vaqt oladi?":"配送需要多长时间？","Standart buyurtmalar 24 soat ichida yetkaziladi. Shoshilinch holatlarda esa shu kunning o'zida ham imkoniyat bor.":"标准订单在 24 小时内送达。紧急情况下也可实现当日送达。",
+"Qanday mahsulotlarni yetkazasiz?":"你们配送哪些产品？","Oziq-ovqat va qandolat mahsulotlari — yirik milliy va xalqaro brendlarning keng assortimenti.":"食品与糖果类产品 —— 涵盖国内外知名品牌的丰富品类。",
+"Narxlar va shartlar qanday belgilanadi?":"价格与条件如何确定？","Har bir mijoz uchun biznes hajmiga qarab individual narx va to'lov shartlari taklif qilinadi.":"我们会根据每位客户的业务规模，提供专属价格与付款条件。",
+"Hisob-kitob qanday yuritiladi?":"结算如何进行？","Barcha hisob-kitoblar Sales Doctor tizimi orqali shaffof va aniq tarzda yuritiladi.":"所有结算均通过 Sales Doctor 系统透明、精准地完成。",
+"KELING, BIRGA ISHLAYLIK":"让我们携手合作","Hamkorlikni":"开启合作，","bugun":"就在今天","boshlang":"",
+"Ariza qoldiring — jamoamiz siz bilan bog'lanib, biznesingiz uchun eng qulay shartlarni taklif qiladi.":"提交申请 —— 我们的团队将与您联系，并为您的业务提供最优惠的合作条件。",
+"Biz bilan":"与我们","bog'laning":"联系","Hamkorlik, buyurtma yoki savollaringiz bo'lsa — biz har doim aloqaga tayyormiz.":"无论是合作、订单还是任何疑问 —— 我们随时恭候。",
+"Telefon":"电话","Joylashuv":"地址","Samarqand viloyati, O'zbekiston":"乌兹别克斯坦，撒马尔罕州","@martdistribution":"@martdistribution",
+"Maydonlarni to'ldiring — tez orada siz bilan bog'lanamiz.":"请填写以下信息 —— 我们会尽快与您联系。",
+"Ism / Tashkilot":"姓名 / 公司","Ismingiz yoki tashkilot nomi":"您的姓名或公司名称",
+"Biznes turi":"业务类型","Tanlang...":"请选择...","Do'kon / market":"商店 / 超市","Ulgurji savdo":"批发贸易","HoReCa":"餐饮酒店业","Boshqa":"其他",
+"Xabar":"留言","Qisqacha so'rovingizni yozing...":"请简要描述您的需求...","Ariza yuborish":"提交申请",
+"2016-yildan beri Samarqand viloyatining ishonchli oziq-ovqat va qandolat distribyutori.":"自 2016 年起，撒马尔罕州值得信赖的食品与糖果分销商。",
+"Bo'limlar":"栏目","Hujjatlar":"资料","Aloqa":"联系方式",
+"© 2026 MART Distribution Co. — Barcha huquqlar himoyalangan.":"© 2026 MART Distribution Co. —— 版权所有。","Samarqand shahar · O'zbekiston":"撒马尔罕市 · 乌兹别克斯坦","Samarqand sh.":"撒马尔罕市","Kattaqo'rg'on":"卡塔库尔干","Urgut":"乌尔古特","Bulung'ur":"布伦古尔","Jomboy":"忠拜","Ishtixon":"伊什蒂汗","Oqdaryo":"奥克达里亚","Narpay":"纳尔帕伊","Nurobod":"努拉巴德","Paxtachi":"帕赫塔奇","Payariq":"帕亚里克","Pastdarg'om":"帕斯特达尔戈姆","Qo'shrabot":"库什拉巴特","Toyloq":"泰洛克","MART Analytics":"MART 数据分析","Bu hafta":"本周","Yetkazib berishlar":"配送次数","Buyurtma":"订单","Ta'minot":"供应","Tuman":"区县","O'z vaqtida":"准时率",
+"Ishlab chiqaruvchilarga":"致生产商","Zavod yoki brend egasimisiz? Mahsulotingizga":"拥有工厂或品牌？为您的产品提供","tayyor bozor":"现成的市场",
+"Ishlab chiqaruvchi yoki brend bo'lsangiz — MART orqali Samarqand shahar va viloyatning 14 tumanidagi 3 500+ savdo nuqtasiga to'g'ridan-to'g'ri chiqasiz. Sotuv, logistika va nazoratni biz o'z zimmamizga olamiz, siz ishlab chiqarishga e'tibor qaratasiz.":"如果您是生产商或品牌方 —— 通过 MART，您可直接进入撒马尔罕市及全州 14 个区县的 3 500+ 家销售网点。销售、物流与管控由我们承担，您只需专注于生产。",
+"Tayyor savdo tarmog'i":"现成的销售网络","3 500+ do'kon va market bilan o'rnatilgan aloqa — mahsulotingiz birinchi kundanoq javonlarda.":"与 3 500+ 家商店和超市建立稳定合作 —— 您的产品从第一天起就能上架。",
+"To'liq logistika":"全链路物流","20+ avtomobillik o'z parkimiz mahsulotni omborimizdan har bir savdo nuqtasiga yetkazadi.":"我们 20+ 辆自有车队将产品从仓库送达每一个销售网点。",
+"Shaffof hisobot":"透明报表","Sales Doctor orqali qancha sotilgani va qayerda ekani real vaqtda ko'rinib turadi.":"通过 Sales Doctor 可实时查看销量以及货品所在位置。",
+"Marketing va joylashuv":"营销与陈列","Mahsulotni savdo nuqtalarida to'g'ri joylashtirish va targ'ib qilishda ko'maklashamiz.":"我们协助您在销售网点合理陈列并推广产品。",
+"Bog'lanasiz":"取得联系","Ariza qoldirasiz yoki qo'ng'iroq qilasiz":"提交申请或致电我们",
+"Kelishamiz":"达成一致","Mahsulot, hajm va shartlarni ko'rib chiqamiz":"我们共同商讨产品、数量与条件",
+"Bozorga chiqaramiz":"推向市场","Mahsulotingiz tarmoq bo'ylab sotuvga tushadi":"您的产品将在整个网络中上架销售"
+};
+const DICT={ru:RU,en:EN,zh:ZH};
 const _snap=[];(function(){const w=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT,{acceptNode(n){if(!n.nodeValue.trim())return NodeFilter.FILTER_REJECT;const p=n.parentElement,t=p&&p.tagName;if(!p||t==='SCRIPT'||t==='STYLE')return NodeFilter.FILTER_REJECT;return NodeFilter.FILTER_ACCEPT;}});let n;while((n=w.nextNode()))_snap.push({n,uz:n.nodeValue});})();
 const _ph=[...document.querySelectorAll('[placeholder]')].map(el=>({el,uz:el.getAttribute('placeholder')}));
 const _op=[...document.querySelectorAll('option')].map(el=>({el,uz:el.textContent}));
-function applyLang(lang){const d=DICT[lang];_snap.forEach(s=>{const k=s.uz.trim();s.n.nodeValue=(d&&d[k]!=null)?s.uz.replace(k,d[k]):s.uz;});_ph.forEach(s=>{const k=s.uz.trim();s.el.setAttribute('placeholder',(d&&d[k]!=null)?d[k]:s.uz);});_op.forEach(s=>{const k=s.uz.trim();s.el.textContent=(d&&d[k]!=null)?d[k]:s.uz;});document.documentElement.lang=lang;document.querySelectorAll('.lang-list span').forEach(sp=>sp.classList.toggle('on',sp.dataset.l===lang));var tb=document.querySelector('.lang-btn');if(tb){var fl=tb.querySelector('.fl');if(fl)fl.className='fl fl-'+lang;var bb=tb.querySelector('b');if(bb)bb.textContent=lang.toUpperCase();}try{localStorage.setItem('mart_lang',lang);}catch(e){}}
+const LBL={uz:'UZ',ru:'RU',en:'EN',zh:'中文'};
+function applyLang(lang){const d=DICT[lang];_snap.forEach(s=>{const k=s.uz.trim();s.n.nodeValue=(d&&d[k]!=null)?s.uz.replace(k,d[k]):s.uz;});_ph.forEach(s=>{const k=s.uz.trim();s.el.setAttribute('placeholder',(d&&d[k]!=null)?d[k]:s.uz);});_op.forEach(s=>{const k=s.uz.trim();s.el.textContent=(d&&d[k]!=null)?d[k]:s.uz;});document.documentElement.lang=lang;document.querySelectorAll('.lang-list span').forEach(sp=>sp.classList.toggle('on',sp.dataset.l===lang));var tb=document.querySelector('.lang-btn');if(tb){var fl=tb.querySelector('.fl');if(fl)fl.className='fl fl-'+lang;var bb=tb.querySelector('b');if(bb)bb.textContent=LBL[lang]||lang.toUpperCase();}try{localStorage.setItem('mart_lang',lang);}catch(e){}}
 var _lang=document.querySelector('.lang'),_lb=document.querySelector('.lang-btn');
 document.querySelectorAll('.lang-list span').forEach(sp=>sp.addEventListener('click',()=>{applyLang(sp.dataset.l);if(_lang)_lang.classList.remove('open');}));
 if(_lb)_lb.addEventListener('click',function(e){e.stopPropagation();if(_lang)_lang.classList.toggle('open');});
 document.addEventListener('click',function(){if(_lang)_lang.classList.remove('open');});
-(function(){try{var l=localStorage.getItem('mart_lang');if(l==='ru'||l==='en')applyLang(l);}catch(e){}})();
+(function(){try{var l=localStorage.getItem('mart_lang');if(l==='ru'||l==='en'||l==='zh')applyLang(l);}catch(e){}})();
 </script>
 </body>
 </html>
